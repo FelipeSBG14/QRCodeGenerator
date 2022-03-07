@@ -1,6 +1,6 @@
 # qrcode_app
 
-A new Flutter project.
+Esse é um Gerador de QR code para qualquer valor inserido em seu FormField.
 
 ## Getting Started
 
