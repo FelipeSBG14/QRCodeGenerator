@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:qrcode_app/shared/themes/app_colors.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -11,8 +12,7 @@ class QRCodeReader extends StatefulWidget {
 
 class _QRCodeReaderState extends State<QRCodeReader> {
   TextEditingController _editingController = TextEditingController();
-  String data = 'data';
-
+  double data = 10;
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +32,9 @@ class _QRCodeReaderState extends State<QRCodeReader> {
                   height: screenHeight * 0.4,
                   decoration: BoxDecoration(
                     //color: Colors.amber,
-                      image: DecorationImage(
-                          image: AssetImage(AppImages.Capivara)),
-                          ),
+                    image:
+                        DecorationImage(image: AssetImage(AppImages.Capivara)),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
@@ -55,28 +55,31 @@ class _QRCodeReaderState extends State<QRCodeReader> {
                       width: size.width * 0.80,
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 10),
-                        child: TextField(
+                        child: TextFormField(
+                          keyboardType: TextInputType.number,
                           controller: _editingController,
                           decoration: InputDecoration(
                             hintStyle: TextStyle(color: Colors.white),
-                              focusedBorder: OutlineInputBorder(
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                                //teste
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)),
                                 borderSide: BorderSide(
                                   color: Colors.white,
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                  )),
-                              labelText: 'Insira o valor para gerar o QR Code',
-                              labelStyle: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                              ),
-                              fillColor: Colors.white,
-                              ),
-                              style: TextStyle(color: Colors.white),
+                                )),
+                            labelText: 'Insira o valor para gerar o QR Code',
+                            labelStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                            ),
+                            fillColor: Colors.white,
+                          ),
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
@@ -86,7 +89,27 @@ class _QRCodeReaderState extends State<QRCodeReader> {
                       child: ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            data = _editingController.text;
+                            var number = double.parse(_editingController.text);
+                            if (number < 0 || number % 1 != 0) {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext) {
+                                    return AlertDialog(
+                                      title: Text('Atenção!'),
+                                      content: Text(
+                                          'Coloque apenas números INTEIROS e POSITIVOS!'),
+                                      actions: [
+                                        ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('Fechar'))
+                                      ],
+                                    );
+                                  });
+                            } else {
+                              data = number;
+                            }
                           });
                         },
                         child: Text('Gerar QR Code'),
