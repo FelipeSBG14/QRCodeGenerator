@@ -56,6 +56,7 @@ class _QRCodeReaderState extends State<QRCodeReader> {
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: TextFormField(
+                          textInputAction: TextInputAction.go,
                           keyboardType: TextInputType.number,
                           controller: _editingController,
                           decoration: InputDecoration(
@@ -109,6 +110,7 @@ class _QRCodeReaderState extends State<QRCodeReader> {
                                   });
                             } else {
                               data = number;
+                              _editingController.clear();
                             }
                           });
                         },
