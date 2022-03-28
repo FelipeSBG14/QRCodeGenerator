@@ -1,5 +1,3 @@
-import 'dart:ui';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:qrcode_app/shared/themes/app_colors.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -94,6 +92,7 @@ class _QRCodeReaderState extends State<QRCodeReader> {
                             if (number < 0 || number % 1 != 0) {
                               showDialog(
                                   context: context,
+                                  // ignore: non_constant_identifier_names
                                   builder: (BuildContext) {
                                     return AlertDialog(
                                       title: Text('Atenção!'),
