@@ -78,7 +78,7 @@ class _QRCodeReaderState extends State<QRCodeReader> {
                             ),
                             fillColor: Colors.white,
                           ),
-                          style: TextStyle(color: Colors.blue),
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
